@@ -76,23 +76,36 @@ def plot_cumulative_time_in_space(df, graph_file):
     plt.show()
 
 
-print("--START--")
+def main(input_file, output_file, graph_file):
+    """Main function to execute the EVA data analysis pipeline.
 
-input_file = open('./eva-data.json', 'r', encoding='ascii')
-output_file = open('./eva-data.csv', 'w', encoding='utf-8')
-graph_file = './cumulative_eva_graph.png'
+    Args:
+        input_file (str): The path to the input JSON file.
+        output_file (str): The path to the output CSV file.
+        graph_file (str): The path to the output graph file.
+    """
+    print("--START--")
 
-# Read the EVA dataset from JSON
-print(f'Reading JSON file {input_file.name}')
-eva_df = read_json_to_dataframe(input_file)
+    # Read the EVA dataset from JSON
+    print(f'Reading JSON file {input_file}')
+    eva_df = read_json_to_dataframe(input_file)
 
-# Write the cleaned data to CSV for downstream use
-print(f'Saving CSV file to {output_file.name}')
-write_dataframe_to_csv(eva_df, output_file)
+    # Write the cleaned data to CSV for downstream use
+    print(f'Saving CSV file to {output_file}')
+    write_dataframe_to_csv(eva_df, output_file)
 
-# Plot cumulative time spent in space over the years
-eva_df.sort_values('date', inplace=True)
-print(f'Plotting cumulative time in space to {graph_file}')
-plot_cumulative_time_in_space(eva_df, graph_file)
+    # Plot cumulative time spent in space over the years
+    eva_df.sort_values('date', inplace=True)
+    print(f'Plotting cumulative time in space to {graph_file}')
+    plot_cumulative_time_in_space(eva_df, graph_file)
 
-print("--END--")
+    print("--END--")
+
+
+if __name__ == "__main__":
+
+    input_file = './eva-data.json'
+    output_file = './eva-data.csv'
+    graph_file = './cumulative_eva_graph.png'
+
+    main(input_file, output_file, graph_file)
