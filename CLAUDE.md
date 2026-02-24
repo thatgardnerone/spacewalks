@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Python data analysis project that processes NASA Extra-Vehicular Activity (EVA/spacewalk) data. It converts JSON spacewalk records into CSV, parses durations and dates, and generates a cumulative time plot of hours spent in space over time.
+Python data analysis project that processes NASA Extra-Vehicular Activity (EVA/spacewalk) data. It reads JSON spacewalk records into a pandas DataFrame, cleans missing values, writes CSV output, and generates a cumulative time plot of hours spent in space over time.
 
 ## Running
 
@@ -22,17 +22,20 @@ Then run the main script:
 python eva_data_analysis.py
 ```
 
-The script requires `matplotlib` (only external dependency). Standard library modules used: `json`, `csv`, `datetime`. All dependencies are pinned in `requirements.txt`.
+External dependencies: `pandas`, `matplotlib`. All dependencies are pinned in `requirements.txt`.
 
 There are no tests, linting, or CI configured.
 
 ## Architecture
 
-- **`eva_data_analysis.py`** — Main script. Reads `eva-data.json`, writes `eva-data.csv`, and generates `cumulative_eva_graph.png` (cumulative EVA hours over time).
+- **`eva_data_analysis.py`** — Main script with three functions:
+  - `read_json_to_dataframe(input_file)` — reads JSON, converts types, drops rows missing duration/date
+  - `write_dataframe_to_csv(df, output_file)` — writes DataFrame to CSV
+  - `plot_cumulative_time_in_space(df, graph_file)` — computes cumulative hours, plots and saves graph
 - **`eva-data.json`** — NASA EVA dataset (375 records). Each record has: `eva`, `country`, `crew`, `vehicle`, `date`, `duration`, `purpose`.
 
 ## Key Details
 
-- Duration format in the data is `H:MM`. The script converts this to decimal hours.
-- Dates are ISO 8601 timestamps; only the `YYYY-MM-DD` portion is used.
+- Duration format in the data is `H:MM`. The script converts this to decimal hours using pandas string operations.
+- Dates are parsed automatically by pandas via `convert_dates`.
 - Output graph is saved to `cumulative_eva_graph.png` in the working directory.
