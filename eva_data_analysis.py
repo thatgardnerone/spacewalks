@@ -1,7 +1,8 @@
-# https://data.nasa.gov/resource/eva.json (with modifications)
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
+
+# https://data.nasa.gov/resource/eva.json (with modifications)
 
 
 def read_json_to_dataframe(input_file):
@@ -106,12 +107,12 @@ def main(input_file, output_file, graph_file):
 if __name__ == "__main__":
 
     if len(sys.argv) < 3:
-        input_file = './eva-data.json'
-        output_file = './eva-data.csv'
+        input_file = 'data/eva-data.json'
+        output_file = 'results/eva-data.csv'
     else:
         input_file = sys.argv[1]
         output_file = sys.argv[2]
 
-    graph_file = './cumulative_eva_graph.png'
+    graph_file = 'results/cumulative_eva_graph.png'
 
     main(input_file, output_file, graph_file)

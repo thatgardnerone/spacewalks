@@ -1,6 +1,7 @@
 # Generated output files
 eva-data.csv
 cumulative_eva_graph.png
+results/
 
 # Python
 __pycache__/
