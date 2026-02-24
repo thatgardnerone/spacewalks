@@ -1,0 +1,12 @@
+# Generated output files
+eva-data.csv
+cumulative_eva_graph.png
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# IDE / OS
+.idea/
+.DS_Store
