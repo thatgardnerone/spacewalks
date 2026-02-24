@@ -4,6 +4,14 @@ import pandas as pd
 
 
 def read_json_to_dataframe(input_file):
+    """Read NASA EVA JSON data and return a cleaned DataFrame.
+
+    Args:
+        input_file: An open file object containing JSON EVA records.
+
+    Returns:
+        A pandas DataFrame with rows missing duration or date removed.
+    """
     eva_df = pd.read_json(input_file, convert_dates=['date'], encoding='ascii')
     eva_df['eva'] = eva_df['eva'].astype(float)
     eva_df.dropna(axis=0, subset=['duration', 'date'], inplace=True)
@@ -11,10 +19,22 @@ def read_json_to_dataframe(input_file):
 
 
 def write_dataframe_to_csv(df, output_file):
+    """Write a DataFrame to a CSV file.
+
+    Args:
+        df: A pandas DataFrame to write.
+        output_file: An open file object or path string for the output CSV.
+    """
     df.to_csv(output_file, index=False, encoding='utf-8')
 
 
 def plot_cumulative_time_in_space(df, graph_file):
+    """Calculate cumulative EVA hours and save a plot over time.
+
+    Args:
+        df: A pandas DataFrame with 'date' and 'duration' columns.
+        graph_file: Path string where the plot image will be saved.
+    """
     df.sort_values('date', inplace=True)
     df['duration_hours'] = df['duration'].str.split(":").apply(lambda x: int(x[0]) + int(x[1])/60)
     df['cumulative_time'] = df['duration_hours'].cumsum()
