@@ -8,13 +8,21 @@ Python data analysis project that processes NASA Extra-Vehicular Activity (EVA/s
 
 ## Running
 
-No build system or package manager is configured. Run the main script directly:
+Set up a virtual environment and install dependencies:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -r requirements.txt
+```
+
+Then run the main script:
 
 ```bash
 python eva_data_analysis.py
 ```
 
-The script requires `matplotlib` (only external dependency). Standard library modules used: `json`, `csv`, `datetime`.
+The script requires `matplotlib` (only external dependency). Standard library modules used: `json`, `csv`, `datetime`. All dependencies are pinned in `requirements.txt`.
 
 There are no tests, linting, or CI configured.
 
