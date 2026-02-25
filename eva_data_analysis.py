@@ -1,6 +1,15 @@
 # Copyright (c) 2026 thatgardnerone. Licensed under the MIT License.
 # See LICENSE file in the project root for full license information.
 
+"""Analysis of NASA Extra-Vehicular Activity (EVA) data.
+
+Reads JSON spacewalk records, cleans and processes the data,
+outputs a CSV summary, and generates a cumulative time plot
+of hours spent in space over time.
+
+Data source: https://data.nasa.gov/resource/eva.json (with modifications)
+"""
+
 from __future__ import annotations
 
 import re
@@ -10,10 +19,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-# https://data.nasa.gov/resource/eva.json (with modifications)
-
-
-def read_json_to_dataframe(input_file):
+def read_json_to_dataframe(input_file) -> pd.DataFrame:
     """Read the data from a JSON file into a Pandas dataframe.
 
     Cleans the data by removing any incomplete rows and sort by date.
@@ -30,7 +36,7 @@ def read_json_to_dataframe(input_file):
     return eva_df
 
 
-def write_dataframe_to_csv(df, output_file):
+def write_dataframe_to_csv(df, output_file) -> None:
     """Write the dataframe to a CSV file.
 
     Args:
@@ -40,7 +46,7 @@ def write_dataframe_to_csv(df, output_file):
     df.to_csv(output_file, index=False, encoding='utf-8')
 
 
-def text_to_duration(duration):
+def text_to_duration(duration) -> float:
     """Convert a text format duration "HH:MM" to duration in hours.
 
     Args:
@@ -54,7 +60,7 @@ def text_to_duration(duration):
     return duration_hours
 
 
-def add_duration_hours(df):
+def add_duration_hours(df) -> pd.DataFrame:
     """Add duration in hours as a new column to the dataframe.
 
     Args:
@@ -83,7 +89,7 @@ def calculate_crew_size(crew) -> int | None:
         return len(re.split(r';', crew)) - 1
 
 
-def add_crew_size_variable(df_):
+def add_crew_size_variable(df_) -> pd.DataFrame:
     """Add crew size (crew_size) variable to the dataset.
 
     Args:
@@ -127,7 +133,7 @@ def summarise_categorical(df_, varname_) -> pd.DataFrame:
     return df_summary
 
 
-def plot_cumulative_time_in_space(df, graph_file):
+def plot_cumulative_time_in_space(df, graph_file) -> None:
     """Plot the cumulative time spent in space over the years.
 
     Args:
@@ -145,7 +151,7 @@ def plot_cumulative_time_in_space(df, graph_file):
     plt.show()
 
 
-def main(input_file, output_file, graph_file):
+def main(input_file, output_file, graph_file) -> None:
     """Main function to execute the EVA data analysis pipeline.
 
     Args:
