@@ -16,3 +16,8 @@ keywords:
   - data analysis
 repository-code: https://github.com/thatgardnerone/spacewalks
 license: MIT
+version: 1.0.0
+identifiers:
+  - type: doi
+    value: 10.5072/zenodo.446357
+date-released: 2026-02-25
