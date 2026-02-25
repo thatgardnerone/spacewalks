@@ -1,5 +1,7 @@
 # Spacewalks
 
+[![DOI](https://sandbox.zenodo.org/badge/DOI/10.5072/zenodo.446357.svg)](https://doi.org/10.5072/zenodo.446357)
+
 Analysis of NASA Extra-Vehicular Activity (EVA) data. This project reads JSON spacewalk records, cleans and processes the data, outputs a CSV summary, and generates a cumulative time plot of hours spent in space over time.
 
 ## Features
