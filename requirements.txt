@@ -12,3 +12,6 @@ python-dateutil==2.9.0.post0
 six==1.17.0
 pytest
 pytest-cov
+mkdocs
+mkdocstrings[python]
+mkdocs-material
