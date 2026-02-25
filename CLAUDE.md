@@ -46,7 +46,7 @@ CI runs automatically on push via GitHub Actions (`.github/workflows/main.yml`).
 
 ## Architecture
 
-- **`eva_data_analysis.py`** — Main script with entry point `main(input_file, output_file, graph_file)`, guarded by `if __name__ == "__main__":`. Accepts optional `sys.argv` arguments for input/output file paths. Contains eight functions:
+- **`eva_data_analysis.py`** — Main script with entry point `main(input_file, output_file, duration_by_astronaut_output_file, graph_file)`, guarded by `if __name__ == "__main__":`. Accepts optional `sys.argv` arguments for input/output file paths. Contains nine functions:
   - `read_json_to_dataframe(input_file)` — reads JSON, converts types, drops rows missing duration/date
   - `write_dataframe_to_csv(df, output_file)` — writes DataFrame to CSV
   - `text_to_duration(duration)` — converts `"H:MM"` string to float hours
@@ -54,9 +54,10 @@ CI runs automatically on push via GitHub Actions (`.github/workflows/main.yml`).
   - `calculate_crew_size(crew)` — parses crew string to count crew members
   - `add_crew_size_variable(df_)` — applies `calculate_crew_size` to add `crew_size` column
   - `summarise_categorical(df_, varname_)` — tabulates count/percentage distribution of a categorical variable
+  - `summary_duration_by_astronaut(df)` — splits crew strings into individual astronauts and sums EVA duration per person
   - `plot_cumulative_time_in_space(df, graph_file)` — computes cumulative hours, plots and saves graph
 - **`data/eva-data.json`** — NASA EVA dataset (375 records). Each record has: `eva`, `country`, `crew`, `vehicle`, `date`, `duration`, `purpose`.
-- **`results/`** — Output directory (gitignored) for `eva-data.csv` and `cumulative_eva_graph.png`.
+- **`results/`** — Output directory (gitignored) for `eva-data.csv`, `duration_by_astronaut.csv`, and `cumulative_eva_graph.png`.
 - **`tests/test_eva_analysis.py`** — pytest test suite.
 - **`.github/workflows/main.yml`** — GitHub Actions CI workflow (pytest with coverage on push).
 - **`README.md`** — Project overview, installation, usage, and license info.
@@ -90,3 +91,5 @@ Docs are published at: https://thatgardnerone.github.io/spacewalks/
 - Dates are parsed automatically by pandas via `convert_dates`.
 - Default output graph is saved to `results/cumulative_eva_graph.png`.
 - Default CSV output is saved to `results/eva-data.csv`.
+- Astronaut duration summary is saved to `results/duration_by_astronaut.csv`.
+- `CITATION.cff` includes Zenodo DOI (`10.5072/zenodo.446357`) for citation.
