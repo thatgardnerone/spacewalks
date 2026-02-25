@@ -1,7 +1,12 @@
-import matplotlib.pyplot as plt
-import pandas as pd
+# Copyright (c) 2026 thatgardnerone. Licensed under the MIT License.
+# See LICENSE file in the project root for full license information.
+
 import re
 import sys
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
 
 # https://data.nasa.gov/resource/eva.json (with modifications)
 
@@ -43,7 +48,7 @@ def text_to_duration(duration):
         duration_hours (float): The duration in hours.
     """
     hours, minutes = duration.split(":")
-    duration_hours = int(hours) + int(minutes)/60
+    duration_hours = int(hours) + int(minutes) / 60
     return duration_hours
 
 
