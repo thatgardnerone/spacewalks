@@ -30,18 +30,35 @@ python eva_data_analysis.py data/eva-data.json results/eva-data.csv
 
 External dependencies: `pandas`, `matplotlib`. All dependencies are pinned in `requirements.txt`.
 
-There are no tests, linting, or CI configured.
+## Testing
+
+Tests use `pytest` and `pytest-cov`. Run from the project root:
+
+```bash
+python -m pytest                # run all tests
+python -m pytest --cov          # with coverage report
+python -m pytest --cov --cov-report=html  # with HTML coverage report
+```
+
+Test file: `tests/test_eva_analysis.py` — covers `text_to_duration`, `calculate_crew_size`, and `summarise_categorical` with unit tests for typical values, edge cases, and invalid inputs.
+
+CI runs automatically on push via GitHub Actions (`.github/workflows/main.yml`).
 
 ## Architecture
 
-- **`eva_data_analysis.py`** — Main script with entry point `main(input_file, output_file, graph_file)`, guarded by `if __name__ == "__main__":`. Accepts optional `sys.argv` arguments for input/output file paths. Contains five functions:
+- **`eva_data_analysis.py`** — Main script with entry point `main(input_file, output_file, graph_file)`, guarded by `if __name__ == "__main__":`. Accepts optional `sys.argv` arguments for input/output file paths. Contains eight functions:
   - `read_json_to_dataframe(input_file)` — reads JSON, converts types, drops rows missing duration/date
   - `write_dataframe_to_csv(df, output_file)` — writes DataFrame to CSV
   - `text_to_duration(duration)` — converts `"H:MM"` string to float hours
   - `add_duration_hours(df)` — applies `text_to_duration` to add a `duration_hours` column
+  - `calculate_crew_size(crew)` — parses crew string to count crew members
+  - `add_crew_size_variable(df_)` — applies `calculate_crew_size` to add `crew_size` column
+  - `summarise_categorical(df_, varname_)` — tabulates count/percentage distribution of a categorical variable
   - `plot_cumulative_time_in_space(df, graph_file)` — computes cumulative hours, plots and saves graph
 - **`data/eva-data.json`** — NASA EVA dataset (375 records). Each record has: `eva`, `country`, `crew`, `vehicle`, `date`, `duration`, `purpose`.
 - **`results/`** — Output directory (gitignored) for `eva-data.csv` and `cumulative_eva_graph.png`.
+- **`tests/test_eva_analysis.py`** — pytest test suite.
+- **`.github/workflows/main.yml`** — GitHub Actions CI workflow (pytest with coverage on push).
 
 ## Key Details
 
