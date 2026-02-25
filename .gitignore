@@ -8,6 +8,9 @@ __pycache__/
 *.pyc
 .venv/
 
+# MkDocs
+site/
+
 # IDE / OS
 .idea/
 .DS_Store

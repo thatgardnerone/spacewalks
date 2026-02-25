@@ -1,0 +1,21 @@
+site_name: Spacewalks
+site_url: https://thatgardnerone.github.io/spacewalks/
+repo_url: https://github.com/thatgardnerone/spacewalks
+
+theme:
+  name: material
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+
+nav:
+  - Home: index.md
+  - Tutorials: tutorials.md
+  - How-To Guides: how-to-guides.md
+  - Reference: reference.md
+  - Explanation: explanation.md
