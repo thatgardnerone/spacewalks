@@ -37,13 +37,15 @@ The HTML report will be available in the `htmlcov/` directory.
 Install the documentation dependencies:
 
 ```bash
-pip install mkdocs mkdocstrings[python] mkdocs-material
+pip install zensical mkdocs mkdocstrings[python] mkdocs-material
 ```
 
 Build and serve the docs locally:
 
 ```bash
-mkdocs serve
+zensical serve
 ```
 
 Then open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
+
+Documentation is automatically deployed to GitHub Pages when changes are pushed to `main`.

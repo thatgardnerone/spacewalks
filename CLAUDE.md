@@ -28,7 +28,7 @@ Or specify input and output files via command-line arguments:
 python eva_data_analysis.py data/eva-data.json results/eva-data.csv
 ```
 
-External dependencies: `pandas`, `matplotlib`, `mkdocs`, `mkdocstrings[python]`, `mkdocs-material`. All dependencies are pinned in `requirements.txt`.
+External dependencies: `pandas`, `matplotlib`, `zensical`, `mkdocs`, `mkdocstrings[python]`, `mkdocs-material`. All dependencies are pinned in `requirements.txt`.
 
 ## Testing
 
@@ -62,7 +62,7 @@ CI runs automatically on push via GitHub Actions (`.github/workflows/main.yml`).
 - **`README.md`** — Project overview, installation, usage, and license info.
 - **`LICENSE`** — MIT License.
 - **`CITATION.cff`** — Citation metadata in CFF format.
-- **`mkdocs.yml`** — MkDocs configuration with Material theme and mkdocstrings plugin.
+- **`mkdocs.yml`** — MkDocs/Zensical configuration with Material theme and mkdocstrings plugin.
 - **`docs/`** — Documentation source files:
   - `index.md` — landing page
   - `tutorials.md` — step-by-step tutorial
@@ -73,17 +73,14 @@ CI runs automatically on push via GitHub Actions (`.github/workflows/main.yml`).
 
 ## Documentation
 
-Build and serve docs locally:
+Build and serve docs locally (using Zensical, a drop-in MkDocs replacement):
 
 ```bash
-mkdocs serve
+zensical build
+zensical serve
 ```
 
-Deploy to GitHub Pages:
-
-```bash
-mkdocs gh-deploy
-```
+Docs are automatically deployed to GitHub Pages on push to `main` via `.github/workflows/docs.yml`.
 
 Docs are published at: https://thatgardnerone.github.io/spacewalks/
 

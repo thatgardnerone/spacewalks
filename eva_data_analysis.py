@@ -1,6 +1,8 @@
 # Copyright (c) 2026 thatgardnerone. Licensed under the MIT License.
 # See LICENSE file in the project root for full license information.
 
+from __future__ import annotations
+
 import re
 import sys
 
@@ -66,7 +68,7 @@ def add_duration_hours(df):
     return df_copy
 
 
-def calculate_crew_size(crew):
+def calculate_crew_size(crew) -> int | None:
     """Calculate crew_size for a single crew entry.
 
     Args:
@@ -98,7 +100,7 @@ def add_crew_size_variable(df_):
     return df_copy
 
 
-def summarise_categorical(df_, varname_):
+def summarise_categorical(df_, varname_) -> pd.DataFrame:
     """Tabulate the distribution of a categorical variable.
 
     Args:
