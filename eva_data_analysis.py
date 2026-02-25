@@ -133,6 +133,24 @@ def summarise_categorical(df_, varname_) -> pd.DataFrame:
     return df_summary
 
 
+def summary_duration_by_astronaut(df) -> pd.DataFrame:
+    """Summarise the duration data by each astronaut.
+
+    Args:
+        df (pd.DataFrame): Input dataframe to be summarised.
+
+    Returns:
+        pd.DataFrame: Data frame with a row for each astronaut and a
+            summarised duration_hours column.
+    """
+    print('Calculating summary of total EVA time by astronaut')
+    subset = df.loc[:, ['crew', 'duration']]
+    subset = add_duration_hours(subset)
+    subset = subset.drop('duration', axis=1)
+    subset = subset.groupby('crew').sum().reset_index()
+    return subset
+
+
 def plot_cumulative_time_in_space(df, graph_file) -> None:
     """Plot the cumulative time spent in space over the years.
 
@@ -151,12 +169,13 @@ def plot_cumulative_time_in_space(df, graph_file) -> None:
     plt.show()
 
 
-def main(input_file, output_file, graph_file) -> None:
+def main(input_file, output_file, duration_by_astronaut_output_file, graph_file) -> None:
     """Main function to execute the EVA data analysis pipeline.
 
     Args:
         input_file (str): The path to the input JSON file.
         output_file (str): The path to the output CSV file.
+        duration_by_astronaut_output_file (str): The path to the astronaut summary CSV.
         graph_file (str): The path to the output graph file.
     """
     print("--START--")
@@ -168,6 +187,10 @@ def main(input_file, output_file, graph_file) -> None:
     # Write the cleaned data to CSV for downstream use
     print(f'Saving CSV file to {output_file}')
     write_dataframe_to_csv(eva_df, output_file)
+
+    # Calculate summary table for total EVA per astronaut
+    duration_by_astronaut_df = summary_duration_by_astronaut(eva_df)
+    write_dataframe_to_csv(duration_by_astronaut_df, duration_by_astronaut_output_file)
 
     # Plot cumulative time spent in space over the years
     eva_df.sort_values('date', inplace=True)
@@ -187,5 +210,6 @@ if __name__ == "__main__":
         output_file = sys.argv[2]
 
     graph_file = 'results/cumulative_eva_graph.png'
+    duration_by_astronaut_output_file = 'results/duration_by_astronaut.csv'
 
-    main(input_file, output_file, graph_file)
+    main(input_file, output_file, duration_by_astronaut_output_file, graph_file)
