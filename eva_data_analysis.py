@@ -43,7 +43,7 @@ def text_to_duration(duration):
         duration_hours (float): The duration in hours.
     """
     hours, minutes = duration.split(":")
-    duration_hours = int(hours) + int(minutes)/6
+    duration_hours = int(hours) + int(minutes)/60
     return duration_hours
 
 
@@ -108,7 +108,7 @@ def summarise_categorical(df_, varname_):
 
     # Prepare statistical summary
     count_variable = df_[[varname_]].copy()
-    count_summary = count_variable.value_counts()
+    count_summary = count_variable.value_counts(dropna=False)
     percentage_summary = round(count_summary / count_variable.size, 2) * 100
 
     # Combine results into a summary data frame
