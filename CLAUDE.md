@@ -28,7 +28,7 @@ Or specify input and output files via command-line arguments:
 python eva_data_analysis.py data/eva-data.json results/eva-data.csv
 ```
 
-External dependencies: `pandas`, `matplotlib`. All dependencies are pinned in `requirements.txt`.
+External dependencies: `pandas`, `matplotlib`, `mkdocs`, `mkdocstrings[python]`, `mkdocs-material`. All dependencies are pinned in `requirements.txt`.
 
 ## Testing
 
@@ -59,6 +59,33 @@ CI runs automatically on push via GitHub Actions (`.github/workflows/main.yml`).
 - **`results/`** — Output directory (gitignored) for `eva-data.csv` and `cumulative_eva_graph.png`.
 - **`tests/test_eva_analysis.py`** — pytest test suite.
 - **`.github/workflows/main.yml`** — GitHub Actions CI workflow (pytest with coverage on push).
+- **`README.md`** — Project overview, installation, usage, and license info.
+- **`LICENSE`** — MIT License.
+- **`CITATION.cff`** — Citation metadata in CFF format.
+- **`mkdocs.yml`** — MkDocs configuration with Material theme and mkdocstrings plugin.
+- **`docs/`** — Documentation source files:
+  - `index.md` — landing page
+  - `tutorials.md` — step-by-step tutorial
+  - `how-to-guides.md` — practical how-to recipes
+  - `reference.md` — auto-generated API reference via mkdocstrings
+  - `explanation.md` — background and design decisions
+- **`site/`** — Built documentation output (gitignored).
+
+## Documentation
+
+Build and serve docs locally:
+
+```bash
+mkdocs serve
+```
+
+Deploy to GitHub Pages:
+
+```bash
+mkdocs gh-deploy
+```
+
+Docs are published at: https://thatgardnerone.github.io/spacewalks/
 
 ## Key Details
 
