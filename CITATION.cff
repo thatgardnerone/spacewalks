@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: Spacewalks
+type: software
+authors:
+  - name: thatgardnerone
+abstract: >-
+  Analysis of NASA Extra-Vehicular Activity (EVA) data.
+  Reads JSON spacewalk records, cleans and processes the data,
+  outputs a CSV summary, and generates a cumulative time plot
+  of hours spent in space over time.
+keywords:
+  - NASA
+  - Extravehicular activity
+  - spacewalks
+  - data analysis
+repository-code: https://github.com/thatgardnerone/spacewalks
+license: MIT
