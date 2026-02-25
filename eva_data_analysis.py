@@ -145,6 +145,10 @@ def summary_duration_by_astronaut(df) -> pd.DataFrame:
     """
     print('Calculating summary of total EVA time by astronaut')
     subset = df.loc[:, ['crew', 'duration']]
+    subset.crew = subset.crew.str.split(';').apply(
+        lambda x: [i for i in x if i.strip()]
+    )
+    subset = subset.explode('crew')
     subset = add_duration_hours(subset)
     subset = subset.drop('duration', axis=1)
     subset = subset.groupby('crew').sum().reset_index()
