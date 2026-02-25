@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import re
 import sys
 
 # https://data.nasa.gov/resource/eva.json (with modifications)
@@ -58,6 +59,65 @@ def add_duration_hours(df):
     df_copy = df.copy()
     df_copy['duration_hours'] = df_copy['duration'].apply(text_to_duration)
     return df_copy
+
+
+def calculate_crew_size(crew):
+    """Calculate crew_size for a single crew entry.
+
+    Args:
+        crew (str): The text entry in the crew column.
+
+    Returns:
+        int: The crew size.
+    """
+    if crew.split() == []:
+        return None
+    else:
+        return len(re.split(r';', crew)) - 1
+
+
+def add_crew_size_variable(df_):
+    """Add crew size (crew_size) variable to the dataset.
+
+    Args:
+        df_ (pd.DataFrame): The input data frame.
+
+    Returns:
+        df_copy (pd.DataFrame): A copy of df_ with the new crew_size variable added.
+    """
+    print('Adding crew size variable (crew_size) to dataset')
+    df_copy = df_.copy()
+    df_copy["crew_size"] = df_copy["crew"].apply(
+        calculate_crew_size
+    )
+    return df_copy
+
+
+def summarise_categorical(df_, varname_):
+    """Tabulate the distribution of a categorical variable.
+
+    Args:
+        df_ (pd.DataFrame): The input dataframe.
+        varname_ (str): The name of the variable.
+
+    Returns:
+        pd.DataFrame: dataframe containing the count and percentage of
+        each unique value of varname_.
+    """
+    print(f'Tabulating distribution of categorical variable {varname_}')
+
+    # Prepare statistical summary
+    count_variable = df_[[varname_]].copy()
+    count_summary = count_variable.value_counts()
+    percentage_summary = round(count_summary / count_variable.size, 2) * 100
+
+    # Combine results into a summary data frame
+    df_summary = pd.concat([count_summary, percentage_summary], axis=1)
+    df_summary.columns = ['count', 'percentage']
+    df_summary.sort_index(inplace=True)
+
+    df_summary = df_summary.reset_index()
+    return df_summary
 
 
 def plot_cumulative_time_in_space(df, graph_file):
